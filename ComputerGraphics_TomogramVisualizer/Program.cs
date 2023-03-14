@@ -1,3 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace ComputerGraphics_TomogramVisualizer
 {
     internal static class Program
@@ -10,7 +20,7 @@ namespace ComputerGraphics_TomogramVisualizer
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            //ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
     }
