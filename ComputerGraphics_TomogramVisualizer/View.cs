@@ -19,7 +19,28 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
-            GL.Viewport(0, 0, width, height);
+            //GL.Viewport(x, y, width, height);
+            ChangeView(width, height);
+        }
+
+        public static void ChangeView(int GLwidth, int GLheight)
+        {
+            // Bin.X / Bin.Y == glControl1.Width / glControl1.Height
+            // Bin.X / Bin.Y * glControl1.Height == glControl1.Width 
+            // glControl1.Width * Bin.Y / Bin.X == glControl1.Height
+            if (Bin.is_loaded)
+            {
+                if (GLheight * Bin.X / Bin.Y <= GLwidth)
+                {
+                    int width = GLheight * Bin.X / Bin.Y;
+                    GL.Viewport((GLwidth - width) / 2, 0, width, GLheight);
+                }
+                else
+                {
+                    int height = GLwidth * Bin.Y / Bin.X;
+                    GL.Viewport(0, (GLheight - height) / 2, GLwidth, height);
+                }
+            }
         }
 
         public static Color TransferFunction(short value)

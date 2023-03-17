@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenTK.Graphics.OpenGL;
 
 namespace ComputerGraphics_TomogramVisualizer
 {
@@ -39,11 +40,21 @@ namespace ComputerGraphics_TomogramVisualizer
                 View.DrawQuads(currentLayer);
                 glControl1.SwapBuffers();
             }
+            else
+            {
+
+            }
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             currentLayer = trackBar1.Value;
+            glControl1.Invalidate();
+        }
+
+        private void glControl1_Resize(object sender, EventArgs e)
+        {
+            View.ChangeView(glControl1.Width, glControl1.Height);
             glControl1.Invalidate();
         }
     }
