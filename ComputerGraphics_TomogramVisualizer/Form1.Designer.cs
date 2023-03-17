@@ -81,6 +81,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.glControl1.TabIndex = 2;
             this.glControl1.Text = "glControl1";
             this.glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
+            this.glControl1.Resize += new System.EventHandler(this.glControl1_Resize);
             // 
             // trackBar1
             // 
