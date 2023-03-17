@@ -25,11 +25,11 @@ namespace ComputerGraphics_TomogramVisualizer
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                string str = ofd.FileName;
                 Bin.readBin(ofd.FileName);
+                trackBar1.Maximum = Bin.Z - 1;
+                currentLayer = trackBar1.Value = 0;
                 View.SetupView(glControl1.Width, glControl1.Height);
                 glControl1.Invalidate();
-                trackBar1.Maximum = Bin.Z - 1;
             }
         }
 
