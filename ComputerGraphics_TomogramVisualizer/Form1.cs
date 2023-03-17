@@ -12,7 +12,6 @@ namespace ComputerGraphics_TomogramVisualizer
 {
     public partial class Form1 : Form
     {
-        private bool is_loaded = false;
         int currentLayer = 0;
 
         public Form1()
@@ -28,7 +27,6 @@ namespace ComputerGraphics_TomogramVisualizer
                 string str = ofd.FileName;
                 Bin.readBin(ofd.FileName);
                 View.SetupView(glControl1.Width, glControl1.Height);
-                is_loaded = true;
                 glControl1.Invalidate();
                 trackBar1.Maximum = Bin.Z - 1;
             }
@@ -36,7 +34,7 @@ namespace ComputerGraphics_TomogramVisualizer
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
-            if (is_loaded)
+            if (Bin.is_loaded)
             {
                 View.DrawQuads(currentLayer);
                 glControl1.SwapBuffers();
@@ -46,11 +44,7 @@ namespace ComputerGraphics_TomogramVisualizer
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             currentLayer = trackBar1.Value;
-            if (is_loaded)
-            {
-                View.DrawQuads(currentLayer);
-                glControl1.SwapBuffers();
-            }
+            glControl1.Invalidate();
         }
     }
 }

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.IO;
 
 namespace ComputerGraphics_TomogramVisualizer
 {
     public static class Bin
     {
+        public static bool is_loaded = false;
         public static int X, Y, Z;
         public static short[]? array;
 
@@ -29,6 +22,7 @@ namespace ComputerGraphics_TomogramVisualizer
                 {
                     array[i] = reader.ReadInt16();
                 }
+                is_loaded = true;
             }
         }
     }

@@ -21,6 +21,7 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
             GL.Viewport(0, 0, width, height);
         }
+
         public static Color TransferFunction(short value)
         {
             int min = 0;
@@ -28,10 +29,11 @@ namespace ComputerGraphics_TomogramVisualizer
             int newVal = Math.Clamp((value - min) * 255 / (max - min), 0, 255);
             return Color.FromArgb(newVal, newVal, newVal);
         }
+
         public static void DrawQuads(int layerNumber)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.Begin(BeginMode.Quads);
+            GL.Begin(PrimitiveType.Quads);
             for (int x_coord = 0; x_coord < Bin.X - 1; x_coord++)
                 for (int y_coord = 0; y_coord < Bin.Y - 1; y_coord++)
                 {
