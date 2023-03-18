@@ -23,6 +23,7 @@ namespace ComputerGraphics_TomogramVisualizer
                     array[i] = reader.ReadInt16();
                 }
                 is_loaded = true;
+                reader.Close();
             }
         }
     }
