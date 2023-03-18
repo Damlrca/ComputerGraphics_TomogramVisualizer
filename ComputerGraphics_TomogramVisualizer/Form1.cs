@@ -26,8 +26,8 @@ namespace ComputerGraphics_TomogramVisualizer
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 Bin.readBin(ofd.FileName);
-                trackBar1.Maximum = Bin.Z - 1;
-                currentLayer = trackBar1.Value = 0;
+                trackBarZ.Maximum = Bin.Z - 1;
+                currentLayer = trackBarZ.Value = 0;
                 View.SetupView(glControl1.Width, glControl1.Height);
                 glControl1.Invalidate();
             }
@@ -42,13 +42,14 @@ namespace ComputerGraphics_TomogramVisualizer
             }
             else
             {
-
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                glControl1.SwapBuffers();
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void trackBarZ_Scroll(object sender, EventArgs e)
         {
-            currentLayer = trackBar1.Value;
+            currentLayer = trackBarZ.Value;
             glControl1.Invalidate();
         }
 

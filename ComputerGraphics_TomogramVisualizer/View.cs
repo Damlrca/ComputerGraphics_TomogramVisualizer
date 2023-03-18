@@ -19,12 +19,13 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
-            //GL.Viewport(x, y, width, height);
+            //GL.Viewport(0, 0, width, height);
             ChangeView(width, height);
         }
 
         public static void ChangeView(int GLwidth, int GLheight)
         {
+            //GL.Viewport(0, 0, GLwidth, GLheight);
             // Bin.X / Bin.Y == glControl1.Width / glControl1.Height
             // Bin.X / Bin.Y * glControl1.Height == glControl1.Width 
             // glControl1.Width * Bin.Y / Bin.X == glControl1.Height
@@ -58,17 +59,18 @@ namespace ComputerGraphics_TomogramVisualizer
             for (int x_coord = 0; x_coord < Bin.X - 1; x_coord++)
                 for (int y_coord = 0; y_coord < Bin.Y - 1; y_coord++)
                 {
+                    int offset = layerNumber * Bin.X * Bin.Y + y_coord * Bin.X;
                     short value;
-                    value = Bin.array[x_coord + y_coord * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    value = Bin.array[x_coord + offset];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord, y_coord);
-                    value = Bin.array[x_coord + (y_coord + 1) * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    value = Bin.array[x_coord + Bin.X + offset];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord, y_coord + 1);
-                    value = Bin.array[(x_coord + 1) + (y_coord + 1) * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    value = Bin.array[(x_coord + 1) + Bin.X + offset];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord + 1, y_coord + 1);
-                    value = Bin.array[(x_coord + 1) + y_coord * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    value = Bin.array[(x_coord + 1) + offset];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord + 1, y_coord);
                 }
