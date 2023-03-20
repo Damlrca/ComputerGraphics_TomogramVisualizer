@@ -52,15 +52,15 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBarMin = new System.Windows.Forms.TrackBar();
+            this.trackBarS = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarS)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -208,19 +208,21 @@ namespace ComputerGraphics_TomogramVisualizer
             this.label2.TabIndex = 7;
             this.label2.Text = "TFminimum";
             // 
-            // trackBar1
+            // trackBarMin
             // 
-            this.trackBar1.Location = new System.Drawing.Point(12, 270);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(198, 56);
-            this.trackBar1.TabIndex = 8;
+            this.trackBarMin.Location = new System.Drawing.Point(12, 270);
+            this.trackBarMin.Name = "trackBarMin";
+            this.trackBarMin.Size = new System.Drawing.Size(198, 56);
+            this.trackBarMin.TabIndex = 8;
+            this.trackBarMin.Scroll += new System.EventHandler(this.trackBarMin_Scroll);
             // 
-            // trackBar2
+            // trackBarS
             // 
-            this.trackBar2.Location = new System.Drawing.Point(12, 352);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(198, 56);
-            this.trackBar2.TabIndex = 10;
+            this.trackBarS.Location = new System.Drawing.Point(12, 352);
+            this.trackBarS.Name = "trackBarS";
+            this.trackBarS.Size = new System.Drawing.Size(198, 56);
+            this.trackBarS.TabIndex = 10;
+            this.trackBarS.Scroll += new System.EventHandler(this.trackBarS_Scroll);
             // 
             // label3
             // 
@@ -236,9 +238,9 @@ namespace ComputerGraphics_TomogramVisualizer
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 503);
-            this.Controls.Add(this.trackBar2);
+            this.Controls.Add(this.trackBarS);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.trackBarMin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
@@ -257,8 +259,8 @@ namespace ComputerGraphics_TomogramVisualizer
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,8 +281,8 @@ namespace ComputerGraphics_TomogramVisualizer
         private RadioButton radioButton4;
         private Label label1;
         private Label label2;
-        private TrackBar trackBar1;
-        private TrackBar trackBar2;
+        private TrackBar trackBarMin;
+        private TrackBar trackBarS;
         private Label label3;
     }
 }

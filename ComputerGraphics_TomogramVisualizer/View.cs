@@ -11,8 +11,10 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ComputerGraphics_TomogramVisualizer
 {
-    public static class View
+    public class View
     {
+        public static int min= 0;
+        public static int sr = 255;
         public static void SetupView(int width, int height)
         {
             GL.ShadeModel(ShadingModel.Smooth);
@@ -46,13 +48,12 @@ namespace ComputerGraphics_TomogramVisualizer
 
         public static Color TransferFunction(short value)
         {
-            int min = 0;
-            int max = 255;
+            int max = min + sr;
             int newVal = Math.Clamp((value - min) * 255 / (max - min), 0, 255);
             return Color.FromArgb(newVal, newVal, newVal);
         }
 
-        public static void DrawQuads(int layerNumber)
+        public static void DrawQuads(int layerNumber, int min = 0, int sr = 255)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Begin(PrimitiveType.Quads);

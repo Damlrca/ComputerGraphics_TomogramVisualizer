@@ -28,6 +28,8 @@ namespace ComputerGraphics_TomogramVisualizer
                 Bin.readBin(ofd.FileName);
                 trackBarZ.Maximum = Bin.Z - 1;
                 currentLayer = trackBarZ.Value = 0;
+                trackBarMin.Maximum = trackBarS.Maximum = 255;
+                trackBarS.Minimum = 1;
                 View.SetupView(glControl1.Width, glControl1.Height);
                 glControl1.Invalidate();
             }
@@ -56,6 +58,18 @@ namespace ComputerGraphics_TomogramVisualizer
         private void glControl1_Resize(object sender, EventArgs e)
         {
             View.ChangeView(glControl1.Width, glControl1.Height);
+            glControl1.Invalidate();
+        }
+
+        private void trackBarMin_Scroll(object sender, EventArgs e)
+        {
+            View.min = trackBarMin.Value;
+            glControl1.Invalidate();
+        }
+
+        private void trackBarS_Scroll(object sender, EventArgs e)
+        {
+            View.sr = trackBarS.Value;
             glControl1.Invalidate();
         }
     }
