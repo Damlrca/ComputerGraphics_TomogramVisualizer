@@ -143,6 +143,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton2.TabIndex = 1;
             this.radioButton2.Text = "Texture";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButtonTexture_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -155,6 +156,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Quads";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButtonQuads_CheckedChanged);
             // 
             // groupBox2
             // 

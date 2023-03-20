@@ -15,6 +15,8 @@ namespace ComputerGraphics_TomogramVisualizer
     {
         int currentLayer = 0;
 
+        bool needReload = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -49,9 +51,30 @@ namespace ComputerGraphics_TomogramVisualizer
             }
         }
 
+        private void glControl1_Paint_Texture(object sender, PaintEventArgs e)
+        {
+            if (Bin.is_loaded)
+            {
+                if (needReload)
+                {
+                    View.generateTextureImage(currentLayer);
+                    View.Load2DTexture();
+                    needReload = false;
+                }
+                View.DrawTexture();
+                glControl1.SwapBuffers();
+            }
+            else
+            {
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                glControl1.SwapBuffers();
+            }
+        }
+
         private void trackBarZ_Scroll(object sender, EventArgs e)
         {
             currentLayer = trackBarZ.Value;
+            needReload = true;
             glControl1.Invalidate();
         }
 
@@ -71,6 +94,18 @@ namespace ComputerGraphics_TomogramVisualizer
         {
             View.sr = trackBarS.Value;
             glControl1.Invalidate();
+        }
+
+        private void radioButtonTexture_CheckedChanged(object sender, EventArgs e)
+        {
+            glControl1.Paint -= glControl1_Paint;
+            glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint_Texture);
+        }
+
+        private void radioButtonQuads_CheckedChanged(object sender, EventArgs e)
+        {
+            glControl1.Paint -= glControl1_Paint_Texture;
+            glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
         }
     }
 }
