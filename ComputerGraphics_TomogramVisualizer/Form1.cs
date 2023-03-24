@@ -39,6 +39,7 @@ namespace ComputerGraphics_TomogramVisualizer
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
+            Console.WriteLine("quads");
             if (Bin.is_loaded)
             {
                 View.DrawQuads(currentLayer);
@@ -53,6 +54,7 @@ namespace ComputerGraphics_TomogramVisualizer
 
         private void glControl1_Paint_Texture(object sender, PaintEventArgs e)
         {
+            Console.WriteLine("texture");
             if (Bin.is_loaded)
             {
                 if (needReload)
@@ -87,25 +89,49 @@ namespace ComputerGraphics_TomogramVisualizer
         private void trackBarMin_Scroll(object sender, EventArgs e)
         {
             View.min = trackBarMin.Value;
+            needReload = true;
             glControl1.Invalidate();
         }
 
         private void trackBarS_Scroll(object sender, EventArgs e)
         {
             View.sr = trackBarS.Value;
+            needReload = true;
             glControl1.Invalidate();
         }
 
         private void radioButtonTexture_CheckedChanged(object sender, EventArgs e)
         {
-            glControl1.Paint -= glControl1_Paint;
-            glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint_Texture);
+            if (radioButtonTexture.Checked)
+            {
+                glControl1.Paint -= glControl1_Paint;
+                glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint_Texture);
+            }
         }
 
         private void radioButtonQuads_CheckedChanged(object sender, EventArgs e)
         {
-            glControl1.Paint -= glControl1_Paint_Texture;
-            glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
+            if (radioButtonQuads.Checked)
+            {
+                glControl1.Paint -= glControl1_Paint_Texture;
+                glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
+            }
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked)
+            {
+                View.zoom_mode = false;
+            }
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton5.Checked)
+            {
+                View.zoom_mode = true;
+            }
         }
     }
 }

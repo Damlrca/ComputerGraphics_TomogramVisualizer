@@ -12,13 +12,18 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ComputerGraphics_TomogramVisualizer
 {
-    public class View
+    public static class View
     {
-        public static int min= 0;
-        public static int sr = 255;
+        //public static int min = 0;
+        //public static int sr = 255;
 
-        static Bitmap textureImage;
-        static int VBOtexture;
+        public static int min { get; set; } = 0;
+        public static int sr { get; set; } = 255;
+
+        public static bool zoom_mode { get; set; } = true;
+
+        private static Bitmap? textureImage = null;
+        private static int VBOtexture = 10;
 
         public static void SetupView(int width, int height)
         {
@@ -32,21 +37,28 @@ namespace ComputerGraphics_TomogramVisualizer
 
         public static void ChangeView(int GLwidth, int GLheight)
         {
-            //GL.Viewport(0, 0, GLwidth, GLheight);
+            // GL.Viewport(0, 0, GLwidth, GLheight);
             // Bin.X / Bin.Y == glControl1.Width / glControl1.Height
             // Bin.X / Bin.Y * glControl1.Height == glControl1.Width 
             // glControl1.Width * Bin.Y / Bin.X == glControl1.Height
             if (Bin.is_loaded)
             {
-                if (GLheight * Bin.X / Bin.Y <= GLwidth)
+                if (zoom_mode)
                 {
-                    int width = GLheight * Bin.X / Bin.Y;
-                    GL.Viewport((GLwidth - width) / 2, 0, width, GLheight);
+                    if (GLheight * Bin.X / Bin.Y <= GLwidth)
+                    {
+                        int width = GLheight * Bin.X / Bin.Y;
+                        GL.Viewport((GLwidth - width) / 2, 0, width, GLheight);
+                    }
+                    else
+                    {
+                        int height = GLwidth * Bin.Y / Bin.X;
+                        GL.Viewport(0, (GLheight - height) / 2, GLwidth, height);
+                    }
                 }
                 else
                 {
-                    int height = GLwidth * Bin.Y / Bin.X;
-                    GL.Viewport(0, (GLheight - height) / 2, GLwidth, height);
+                    GL.Viewport(0, 0, GLwidth, GLheight);
                 }
             }
         }
@@ -97,12 +109,14 @@ namespace ComputerGraphics_TomogramVisualizer
                             (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
                             (int)TextureMagFilter.Linear);
-            ErrorCode Er = GL.GetError();
-            string str = Er.ToString();
+            //ErrorCode Er = GL.GetError();
+            //string str = Er.ToString();
         }
 
         public static void generateTextureImage(int layerNumber)
         {
+            if (textureImage != null)
+                textureImage.Dispose();
             textureImage = new Bitmap(Bin.X, Bin.Y);
             for (int i=0; i< Bin.X; i++)
                 for(int j=0; j<Bin.Y; j++)
@@ -117,7 +131,7 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
 
-            GL.Begin(BeginMode.Quads);
+            GL.Begin(PrimitiveType.Quads);
             GL.Color3(Color.White);
             GL.TexCoord2(0f, 0f);
             GL.Vertex2(0, 0);

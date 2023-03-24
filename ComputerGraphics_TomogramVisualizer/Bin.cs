@@ -4,8 +4,11 @@ namespace ComputerGraphics_TomogramVisualizer
 {
     public static class Bin
     {
-        public static bool is_loaded = false;
-        public static int X, Y, Z;
+        //public static bool is_loaded = false;
+        public static bool is_loaded { get; private set; }
+        public static int X { get; private set; }
+        public static int Y { get; private set; }
+        public static int Z { get; private set; }
         public static short[]? array;
 
         public static void readBin(string path)

@@ -45,8 +45,8 @@ namespace ComputerGraphics_TomogramVisualizer
             this.trackBarZ = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButtonTexture = new System.Windows.Forms.RadioButton();
+            this.radioButtonQuads = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
@@ -115,8 +115,8 @@ namespace ComputerGraphics_TomogramVisualizer
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioButtonTexture);
+            this.groupBox1.Controls.Add(this.radioButtonQuads);
             this.groupBox1.Location = new System.Drawing.Point(12, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(198, 119);
@@ -134,29 +134,29 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton3.Text = "QuadStrip";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radioButtonTexture
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 56);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(78, 24);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = "Texture";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButtonTexture_CheckedChanged);
+            this.radioButtonTexture.AutoSize = true;
+            this.radioButtonTexture.Location = new System.Drawing.Point(6, 56);
+            this.radioButtonTexture.Name = "radioButtonTexture";
+            this.radioButtonTexture.Size = new System.Drawing.Size(78, 24);
+            this.radioButtonTexture.TabIndex = 1;
+            this.radioButtonTexture.Text = "Texture";
+            this.radioButtonTexture.UseVisualStyleBackColor = true;
+            this.radioButtonTexture.CheckedChanged += new System.EventHandler(this.radioButtonTexture_CheckedChanged);
             // 
-            // radioButton1
+            // radioButtonQuads
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 26);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(72, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Quads";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButtonQuads_CheckedChanged);
+            this.radioButtonQuads.AutoSize = true;
+            this.radioButtonQuads.Checked = true;
+            this.radioButtonQuads.Location = new System.Drawing.Point(6, 26);
+            this.radioButtonQuads.Name = "radioButtonQuads";
+            this.radioButtonQuads.Size = new System.Drawing.Size(72, 24);
+            this.radioButtonQuads.TabIndex = 0;
+            this.radioButtonQuads.TabStop = true;
+            this.radioButtonQuads.Text = "Quads";
+            this.radioButtonQuads.UseVisualStyleBackColor = true;
+            this.radioButtonQuads.CheckedChanged += new System.EventHandler(this.radioButtonQuads_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -180,6 +180,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Zoom";
             this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 
             // radioButton4
             // 
@@ -190,6 +191,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton4.TabIndex = 0;
             this.radioButton4.Text = "Stretch";
             this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
             // label1
             // 
@@ -276,8 +278,8 @@ namespace ComputerGraphics_TomogramVisualizer
         private TrackBar trackBarZ;
         private GroupBox groupBox1;
         private RadioButton radioButton3;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioButtonTexture;
+        private RadioButton radioButtonQuads;
         private GroupBox groupBox2;
         private RadioButton radioButton5;
         private RadioButton radioButton4;
