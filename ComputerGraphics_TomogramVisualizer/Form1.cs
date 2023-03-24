@@ -28,6 +28,7 @@ namespace ComputerGraphics_TomogramVisualizer
                 Bin.readBin(ofd.FileName);
                 trackBarZ.Maximum = Bin.Z - 1;
                 currentLayer = trackBarZ.Value = 0;
+                View.need_reload = true;
                 View.SetupView(glControl1.Width, glControl1.Height);
                 glControl1.Invalidate();
             }
@@ -37,7 +38,7 @@ namespace ComputerGraphics_TomogramVisualizer
         {
             if (Bin.is_loaded)
             {
-                View.DrawQuads(currentLayer);
+                View.Draw(currentLayer);
                 glControl1.SwapBuffers();
             }
             else
@@ -50,6 +51,7 @@ namespace ComputerGraphics_TomogramVisualizer
         private void trackBarZ_Scroll(object sender, EventArgs e)
         {
             currentLayer = trackBarZ.Value;
+            View.need_reload = true;
             glControl1.Invalidate();
         }
 
@@ -57,6 +59,72 @@ namespace ComputerGraphics_TomogramVisualizer
         {
             View.ChangeView(glControl1.Width, glControl1.Height);
             glControl1.Invalidate();
+        }
+
+        private void radioButton_Zoom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Zoom.Checked)
+            {
+                View.zoom_mode = true;
+                glControl1_Resize(glControl1, EventArgs.Empty);
+            }
+        }
+
+        private void radioButton_Stretch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Stretch.Checked)
+            {
+                View.zoom_mode = false;
+                glControl1_Resize(glControl1, EventArgs.Empty);
+            }
+        }
+
+        private void radioButton_Quads_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Quads.Checked)
+            {
+                View.vis_mode = VisMode.Quads;
+                glControl1.Invalidate();
+            }
+        }
+
+        private void radioButton_Texture_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Texture.Checked)
+            {
+                View.need_reload = true;
+                View.vis_mode = VisMode.Texture;
+                glControl1.Invalidate();
+            }
+        }
+
+        private void radioButton_QuadStrip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_QuadStrip.Checked)
+            {
+                View.vis_mode = VisMode.QuadStrip;
+                glControl1.Invalidate();
+            }
+        }
+
+        private void trackBar_Minimum_Scroll(object sender, EventArgs e)
+        {
+            View.min = trackBar_Minimum.Value;
+            View.need_reload = true;
+            glControl1.Invalidate();
+        }
+
+        private void trackBar_Width_Scroll(object sender, EventArgs e)
+        {
+            View.sr = trackBar_Width.Value;
+            View.need_reload = true;
+            glControl1.Invalidate();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            trackBar_Minimum.Value = View.min;
+            trackBar_Width.Value = View.sr;
         }
     }
 }

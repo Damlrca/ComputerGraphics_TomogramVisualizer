@@ -44,23 +44,23 @@ namespace ComputerGraphics_TomogramVisualizer
             this.glControl1 = new OpenTK.WinForms.GLControl();
             this.trackBarZ = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton_QuadStrip = new System.Windows.Forms.RadioButton();
+            this.radioButton_Texture = new System.Windows.Forms.RadioButton();
+            this.radioButton_Quads = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton_Zoom = new System.Windows.Forms.RadioButton();
+            this.radioButton_Stretch = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBar_Minimum = new System.Windows.Forms.TrackBar();
+            this.trackBar_Width = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Minimum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Width)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -114,9 +114,9 @@ namespace ComputerGraphics_TomogramVisualizer
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioButton_QuadStrip);
+            this.groupBox1.Controls.Add(this.radioButton_Texture);
+            this.groupBox1.Controls.Add(this.radioButton_Quads);
             this.groupBox1.Location = new System.Drawing.Point(12, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(198, 119);
@@ -124,42 +124,45 @@ namespace ComputerGraphics_TomogramVisualizer
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Варианты визуализации";
             // 
-            // radioButton3
+            // radioButton_QuadStrip
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 86);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(97, 24);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.Text = "QuadStrip";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton_QuadStrip.AutoSize = true;
+            this.radioButton_QuadStrip.Location = new System.Drawing.Point(6, 86);
+            this.radioButton_QuadStrip.Name = "radioButton_QuadStrip";
+            this.radioButton_QuadStrip.Size = new System.Drawing.Size(97, 24);
+            this.radioButton_QuadStrip.TabIndex = 2;
+            this.radioButton_QuadStrip.Text = "QuadStrip";
+            this.radioButton_QuadStrip.UseVisualStyleBackColor = true;
+            this.radioButton_QuadStrip.CheckedChanged += new System.EventHandler(this.radioButton_QuadStrip_CheckedChanged);
             // 
-            // radioButton2
+            // radioButton_Texture
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 56);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(78, 24);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = "Texture";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton_Texture.AutoSize = true;
+            this.radioButton_Texture.Location = new System.Drawing.Point(6, 56);
+            this.radioButton_Texture.Name = "radioButton_Texture";
+            this.radioButton_Texture.Size = new System.Drawing.Size(78, 24);
+            this.radioButton_Texture.TabIndex = 1;
+            this.radioButton_Texture.Text = "Texture";
+            this.radioButton_Texture.UseVisualStyleBackColor = true;
+            this.radioButton_Texture.CheckedChanged += new System.EventHandler(this.radioButton_Texture_CheckedChanged);
             // 
-            // radioButton1
+            // radioButton_Quads
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 26);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(72, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Quads";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton_Quads.AutoSize = true;
+            this.radioButton_Quads.Checked = true;
+            this.radioButton_Quads.Location = new System.Drawing.Point(6, 26);
+            this.radioButton_Quads.Name = "radioButton_Quads";
+            this.radioButton_Quads.Size = new System.Drawing.Size(72, 24);
+            this.radioButton_Quads.TabIndex = 0;
+            this.radioButton_Quads.TabStop = true;
+            this.radioButton_Quads.Text = "Quads";
+            this.radioButton_Quads.UseVisualStyleBackColor = true;
+            this.radioButton_Quads.CheckedChanged += new System.EventHandler(this.radioButton_Quads_CheckedChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton5);
-            this.groupBox2.Controls.Add(this.radioButton4);
+            this.groupBox2.Controls.Add(this.radioButton_Zoom);
+            this.groupBox2.Controls.Add(this.radioButton_Stretch);
             this.groupBox2.Location = new System.Drawing.Point(12, 156);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(198, 88);
@@ -167,27 +170,29 @@ namespace ComputerGraphics_TomogramVisualizer
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Size mode";
             // 
-            // radioButton5
+            // radioButton_Zoom
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Checked = true;
-            this.radioButton5.Location = new System.Drawing.Point(6, 56);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(70, 24);
-            this.radioButton5.TabIndex = 1;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Zoom";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton_Zoom.AutoSize = true;
+            this.radioButton_Zoom.Checked = true;
+            this.radioButton_Zoom.Location = new System.Drawing.Point(6, 56);
+            this.radioButton_Zoom.Name = "radioButton_Zoom";
+            this.radioButton_Zoom.Size = new System.Drawing.Size(70, 24);
+            this.radioButton_Zoom.TabIndex = 1;
+            this.radioButton_Zoom.TabStop = true;
+            this.radioButton_Zoom.Text = "Zoom";
+            this.radioButton_Zoom.UseVisualStyleBackColor = true;
+            this.radioButton_Zoom.CheckedChanged += new System.EventHandler(this.radioButton_Zoom_CheckedChanged);
             // 
-            // radioButton4
+            // radioButton_Stretch
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(6, 26);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(76, 24);
-            this.radioButton4.TabIndex = 0;
-            this.radioButton4.Text = "Stretch";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton_Stretch.AutoSize = true;
+            this.radioButton_Stretch.Location = new System.Drawing.Point(6, 26);
+            this.radioButton_Stretch.Name = "radioButton_Stretch";
+            this.radioButton_Stretch.Size = new System.Drawing.Size(76, 24);
+            this.radioButton_Stretch.TabIndex = 0;
+            this.radioButton_Stretch.Text = "Stretch";
+            this.radioButton_Stretch.UseVisualStyleBackColor = true;
+            this.radioButton_Stretch.CheckedChanged += new System.EventHandler(this.radioButton_Stretch_CheckedChanged);
             // 
             // label1
             // 
@@ -208,19 +213,25 @@ namespace ComputerGraphics_TomogramVisualizer
             this.label2.TabIndex = 7;
             this.label2.Text = "TFminimum";
             // 
-            // trackBar1
+            // trackBar_Minimum
             // 
-            this.trackBar1.Location = new System.Drawing.Point(12, 270);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(198, 56);
-            this.trackBar1.TabIndex = 8;
+            this.trackBar_Minimum.Location = new System.Drawing.Point(12, 270);
+            this.trackBar_Minimum.Maximum = 255;
+            this.trackBar_Minimum.Name = "trackBar_Minimum";
+            this.trackBar_Minimum.Size = new System.Drawing.Size(198, 56);
+            this.trackBar_Minimum.TabIndex = 8;
+            this.trackBar_Minimum.Scroll += new System.EventHandler(this.trackBar_Minimum_Scroll);
             // 
-            // trackBar2
+            // trackBar_Width
             // 
-            this.trackBar2.Location = new System.Drawing.Point(12, 352);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(198, 56);
-            this.trackBar2.TabIndex = 10;
+            this.trackBar_Width.Location = new System.Drawing.Point(12, 352);
+            this.trackBar_Width.Maximum = 255;
+            this.trackBar_Width.Minimum = 1;
+            this.trackBar_Width.Name = "trackBar_Width";
+            this.trackBar_Width.Size = new System.Drawing.Size(198, 56);
+            this.trackBar_Width.TabIndex = 10;
+            this.trackBar_Width.Value = 1;
+            this.trackBar_Width.Scroll += new System.EventHandler(this.trackBar_Width_Scroll);
             // 
             // label3
             // 
@@ -236,9 +247,9 @@ namespace ComputerGraphics_TomogramVisualizer
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 503);
-            this.Controls.Add(this.trackBar2);
+            this.Controls.Add(this.trackBar_Width);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.trackBar_Minimum);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
@@ -250,6 +261,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.MinimumSize = new System.Drawing.Size(750, 550);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZ)).EndInit();
@@ -257,8 +269,8 @@ namespace ComputerGraphics_TomogramVisualizer
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Minimum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Width)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,16 +283,16 @@ namespace ComputerGraphics_TomogramVisualizer
         private ToolStripMenuItem открытьToolStripMenuItem;
         private TrackBar trackBarZ;
         private GroupBox groupBox1;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_QuadStrip;
+        private RadioButton radioButton_Texture;
+        private RadioButton radioButton_Quads;
         private GroupBox groupBox2;
-        private RadioButton radioButton5;
-        private RadioButton radioButton4;
+        private RadioButton radioButton_Zoom;
+        private RadioButton radioButton_Stretch;
         private Label label1;
         private Label label2;
-        private TrackBar trackBar1;
-        private TrackBar trackBar2;
+        private TrackBar trackBar_Minimum;
+        private TrackBar trackBar_Width;
         private Label label3;
     }
 }
