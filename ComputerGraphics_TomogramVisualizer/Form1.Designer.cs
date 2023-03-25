@@ -79,7 +79,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.Open_ToolStripMenuItem_Click);
             // 
             // glControl1
             // 
@@ -127,7 +127,7 @@ namespace ComputerGraphics_TomogramVisualizer
             // radioButton_QuadStrip
             // 
             this.radioButton_QuadStrip.AutoSize = true;
-            this.radioButton_QuadStrip.Location = new System.Drawing.Point(6, 86);
+            this.radioButton_QuadStrip.Location = new System.Drawing.Point(6, 56);
             this.radioButton_QuadStrip.Name = "radioButton_QuadStrip";
             this.radioButton_QuadStrip.Size = new System.Drawing.Size(97, 24);
             this.radioButton_QuadStrip.TabIndex = 2;
@@ -138,11 +138,11 @@ namespace ComputerGraphics_TomogramVisualizer
             // radioButton_Texture
             // 
             this.radioButton_Texture.AutoSize = true;
-            this.radioButton_Texture.Location = new System.Drawing.Point(6, 56);
+            this.radioButton_Texture.Location = new System.Drawing.Point(6, 86);
             this.radioButton_Texture.Name = "radioButton_Texture";
-            this.radioButton_Texture.Size = new System.Drawing.Size(78, 24);
+            this.radioButton_Texture.Size = new System.Drawing.Size(116, 24);
             this.radioButton_Texture.TabIndex = 1;
-            this.radioButton_Texture.Text = "Texture";
+            this.radioButton_Texture.Text = "Texture (fast)";
             this.radioButton_Texture.UseVisualStyleBackColor = true;
             this.radioButton_Texture.CheckedChanged += new System.EventHandler(this.radioButton_Texture_CheckedChanged);
             // 
@@ -152,10 +152,10 @@ namespace ComputerGraphics_TomogramVisualizer
             this.radioButton_Quads.Checked = true;
             this.radioButton_Quads.Location = new System.Drawing.Point(6, 26);
             this.radioButton_Quads.Name = "radioButton_Quads";
-            this.radioButton_Quads.Size = new System.Drawing.Size(72, 24);
+            this.radioButton_Quads.Size = new System.Drawing.Size(116, 24);
             this.radioButton_Quads.TabIndex = 0;
             this.radioButton_Quads.TabStop = true;
-            this.radioButton_Quads.Text = "Quads";
+            this.radioButton_Quads.Text = "Quads (slow)";
             this.radioButton_Quads.UseVisualStyleBackColor = true;
             this.radioButton_Quads.CheckedChanged += new System.EventHandler(this.radioButton_Quads_CheckedChanged);
             // 
@@ -260,7 +260,7 @@ namespace ComputerGraphics_TomogramVisualizer
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(750, 550);
             this.Name = "Form1";
-            this.Text = "Tomogram Visualizer";
+            this.Text = "ComputerGraphics: Tomogram Visualizer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
