@@ -8,7 +8,7 @@ namespace ComputerGraphics_TomogramVisualizer
         public static int X { get; private set; }
         public static int Y { get; private set; }
         public static int Z { get; private set; }
-        public static short[]? array;
+        public static short[]? array { get; private set; }
 
         public static void readBin(string path)
         {
