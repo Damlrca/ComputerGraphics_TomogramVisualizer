@@ -4,6 +4,8 @@
 
 Работу выполнили: [Damlrca](https://github.com/Damlrca), [Mortus19](https://github.com/Mortus19), [aartyomm](https://github.com/aartyomm).
 
+![screenshot](screenshot.png)
+
 ### Особенности работы
 
 - Три варианта визуализации: Quads, QuadStrip, Texture
