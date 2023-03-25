@@ -93,7 +93,7 @@ namespace ComputerGraphics_TomogramVisualizer
                     DrawTexture();
                     break;
                 case VisMode.QuadStrip:
-
+                    DrawQuadStrip(layerNumber);
                     break;
                 default:
                     break;
@@ -125,6 +125,31 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.End();
         }
 
+        public static void DrawQuadStrip(int layerNumber)
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            for (int y_coord = 0; y_coord < Bin.Y - 1; y_coord++)
+            {
+                GL.Begin(BeginMode.QuadStrip);
+                for (int x_coord = 0; x_coord < Bin.X; x_coord++)
+                {
+                    byte value;
+                    //1 вершина
+                    value = TransferFunction(Bin.array[x_coord + y_coord * Bin.X
+                                        + layerNumber * Bin.X * Bin.Y]);
+                    GL.Color3(value,value,value);
+                    GL.Vertex2(x_coord, y_coord);
+                    //2 вершина
+                    value = TransferFunction(Bin.array[x_coord + (y_coord + 1) * Bin.X
+                                        + layerNumber * Bin.X * Bin.Y]);
+                    GL.Color3(value,value,value);
+                    GL.Vertex2(x_coord, y_coord + 1);
+                }
+                GL.End();
+            }
+
+        }
         private static void Load2DTexture()
         {
             GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
