@@ -27,6 +27,7 @@ namespace ComputerGraphics_TomogramVisualizer
         public static VisMode vis_mode { get; set; } = VisMode.Quads;
 
         private static Bitmap? textureImage = null;
+        private static byte[] buffer = null;
         private static int VBOtexture = 0;
         public static bool need_reload { get; set; } = true;
 
@@ -67,11 +68,11 @@ namespace ComputerGraphics_TomogramVisualizer
             }
         }
 
-        public static Color TransferFunction(short value)
+        public static byte TransferFunction(short value)
         {
             int max = min + sr;
-            int newVal = Math.Clamp((value - min) * 255 / (max - min), 0, 255);
-            return Color.FromArgb(newVal, newVal, newVal);
+            byte newVal = (byte)Math.Clamp((value - min) * 255 / (max - min), 0, 255);
+            return newVal;
         }
 
         public static void Draw(int layerNumber)
@@ -84,8 +85,9 @@ namespace ComputerGraphics_TomogramVisualizer
                 case VisMode.Texture:
                     if (need_reload)
                     {
-                        generateTextureImage(layerNumber);
-                        Load2DTexture();
+                        //generateTextureImage(layerNumber);
+                        //Load2DTexture();
+                        generateAndLoad2DTexture(layerNumber);
                         need_reload = false;
                     }
                     DrawTexture();
@@ -106,24 +108,24 @@ namespace ComputerGraphics_TomogramVisualizer
                 for (int y_coord = 0; y_coord < Bin.Y - 1; y_coord++)
                 {
                     int offset = layerNumber * Bin.X * Bin.Y + y_coord * Bin.X;
-                    short value;
-                    value = Bin.array[x_coord + offset];
-                    GL.Color3(TransferFunction(value));
+                    byte value;
+                    value = TransferFunction(Bin.array[x_coord + offset]);
+                    GL.Color3(value, value, value);
                     GL.Vertex2(x_coord, y_coord);
-                    value = Bin.array[x_coord + Bin.X + offset];
-                    GL.Color3(TransferFunction(value));
+                    value = TransferFunction(Bin.array[x_coord + Bin.X + offset]);
+                    GL.Color3(value, value, value);
                     GL.Vertex2(x_coord, y_coord + 1);
-                    value = Bin.array[(x_coord + 1) + Bin.X + offset];
-                    GL.Color3(TransferFunction(value));
+                    value = TransferFunction(Bin.array[(x_coord + 1) + Bin.X + offset]);
+                    GL.Color3(value, value, value);
                     GL.Vertex2(x_coord + 1, y_coord + 1);
-                    value = Bin.array[(x_coord + 1) + offset];
-                    GL.Color3(TransferFunction(value));
+                    value = TransferFunction(Bin.array[(x_coord + 1) + offset]);
+                    GL.Color3(value, value, value);
                     GL.Vertex2(x_coord + 1, y_coord);
                 }
             GL.End();
         }
 
-        public static void Load2DTexture()
+        private static void Load2DTexture()
         {
             GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
             BitmapData data = textureImage.LockBits(new System.Drawing.Rectangle(0, 0, textureImage.Width, textureImage.Height),
@@ -141,7 +143,7 @@ namespace ComputerGraphics_TomogramVisualizer
             //string str = Er.ToString();
         }
 
-        public static void generateTextureImage(int layerNumber)
+        private static void generateTextureImage(int layerNumber)
         {
             if (textureImage != null)
                 textureImage.Dispose();
@@ -150,11 +152,38 @@ namespace ComputerGraphics_TomogramVisualizer
                 for (int j = 0; j < Bin.Y; j++)
                 {
                     int pixelNumber = i + j * Bin.X + layerNumber * Bin.X * Bin.Y;
-                    textureImage.SetPixel(i, j, TransferFunction(Bin.array[pixelNumber]));
+                    byte color = TransferFunction(Bin.array[pixelNumber]);
+                    textureImage.SetPixel(i, j, Color.FromArgb(color, color, color));
                 }
         }
 
-        public static void DrawTexture()
+        private static void generateAndLoad2DTexture(int layerNumber)
+        {
+            int bytes = Bin.X * Bin.Y * 4;
+            if (buffer == null || buffer.Count() != bytes)
+                buffer = new byte[bytes];
+
+            int offset = layerNumber * Bin.X * Bin.Y;
+            for (int i = 0; i < bytes; i += 4, offset++)
+            {
+                byte t = TransferFunction(Bin.array[offset]);
+                buffer[i] = t;
+                buffer[i + 1] = t;
+                buffer[i + 2] = t;
+                buffer[i + 3] = 255;
+            }
+
+            GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba,
+                          Bin.X, Bin.Y, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra,
+                          PixelType.UnsignedByte, buffer);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
+                            (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
+                            (int)TextureMagFilter.Linear);
+        }
+
+        private static void DrawTexture()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.Texture2D);
