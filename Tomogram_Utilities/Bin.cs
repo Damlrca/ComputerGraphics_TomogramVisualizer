@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ComputerGraphics_TomogramVisualizer
+namespace Tomogram_Utilities
 {
     public static class Bin
     {

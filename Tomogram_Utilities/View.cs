@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 
-namespace ComputerGraphics_TomogramVisualizer
+namespace Tomogram_Utilities
 {
     public enum VisMode
     {

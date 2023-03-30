@@ -1,20 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-	<ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.7.1" />
     <PackageReference Include="OpenTK.WinForms" Version="4.0.0-pre.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tomogram_Utilities\Tomogram_Utilities.csproj" />
   </ItemGroup>
 
 </Project>
