@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
+using Tomogram_Utilities;
+using View = Tomogram_Utilities.View;
 
 namespace ComputerGraphics_TomogramVisualizer
 {

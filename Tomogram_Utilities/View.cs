@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 
-namespace ComputerGraphics_TomogramVisualizer
+namespace Tomogram_Utilities
 {
     public enum VisMode
     {
@@ -31,7 +31,7 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.ShadeModel(ShadingModel.Smooth);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
+            GL.Ortho(0, Bin.X - 1, 0, Bin.Y - 1, -1, 1);
             ChangeView(width, height);
         }
 
@@ -179,6 +179,10 @@ namespace ComputerGraphics_TomogramVisualizer
                             (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
                             (int)TextureMagFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
+                            (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
+                            (int)TextureWrapMode.ClampToEdge);
         }
 
         private static void DrawTexture()
@@ -191,16 +195,16 @@ namespace ComputerGraphics_TomogramVisualizer
             GL.Color3(Color.White);
             // 1 вершина
             GL.TexCoord2(0f, 0f);
-            GL.Vertex2(0, 0);
+            GL.Vertex2(-0.5f, -0.5f);
             // 2 вершина
             GL.TexCoord2(0f, 1f);
-            GL.Vertex2(0, Bin.Y);
+            GL.Vertex2(-0.5f, Bin.Y - 0.5f);
             // 3 вершина
             GL.TexCoord2(1f, 1f);
-            GL.Vertex2(Bin.X, Bin.Y);
+            GL.Vertex2(Bin.X - 0.5f, Bin.Y - 0.5f);
             // 4 вершина
             GL.TexCoord2(1f, 0f);
-            GL.Vertex2(Bin.X, 0);
+            GL.Vertex2(Bin.X - 0.5f, -0.5f);
             GL.End();
 
             GL.Disable(EnableCap.Texture2D);
