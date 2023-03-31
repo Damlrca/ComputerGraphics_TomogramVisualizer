@@ -1,4 +1,6 @@
-﻿namespace Tomogram_3D
+﻿using OpenTK.WinForms;
+
+namespace Tomogram_3D
 {
     partial class Form1
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            glControl1 = new OpenTK.WinForms.GLControl();
+            glControl1 = new GLControl();
             SuspendLayout();
             // 
             // glControl1
@@ -38,12 +40,15 @@
             glControl1.APIVersion = new System.Version(3, 3, 0, 0);
             glControl1.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
             glControl1.IsEventDriven = true;
-            glControl1.Location = new System.Drawing.Point(114, 51);
+            glControl1.Location = new System.Drawing.Point(12, 12);
             glControl1.Name = "glControl1";
             glControl1.Profile = OpenTK.Windowing.Common.ContextProfile.Compatability;
-            glControl1.Size = new System.Drawing.Size(504, 400);
+            glControl1.Size = new System.Drawing.Size(708, 479);
             glControl1.TabIndex = 3;
             glControl1.Text = "glControl1";
+            glControl1.Load += glControl1_Load;
+            glControl1.Paint += glControl1_Paint;
+            glControl1.Resize += glControl1_Resize;
             // 
             // Form1
             // 
@@ -59,6 +64,6 @@
 
         #endregion
 
-        private OpenTK.WinForms.GLControl glControl1;
+        private GLControl glControl1;
     }
 }
