@@ -21,13 +21,28 @@ namespace Tomogram_3D
             InitializeComponent();
         }
 
+        private void Open_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Bin.readBin(ofd.FileName);
+                View3D.Generate3DTexture();
+                //trackBarZ.Maximum = Bin.Z - 1;
+                //currentLayer = trackBarZ.Value = 0;
+                //View.need_reload = true;
+                //View.SetupView(glControl1.Width, glControl1.Height);
+                //glControl1.Invalidate();
+                timer1.Start();
+            }
+        }
+
         private void glControl1_Load(object sender, EventArgs e)
         {
             glControl1_Resize(glControl1, EventArgs.Empty);
             glControl1.MakeCurrent();
             View3D.SetupView(glControl1.ClientSize.Width, glControl1.ClientSize.Height);
         }
-
 
         private void glControl1_Resize(object sender, EventArgs e)
         {
@@ -42,6 +57,11 @@ namespace Tomogram_3D
             View3D.Render();
 
             glControl1.SwapBuffers();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            glControl1.Invalidate();
         }
     }
 }
