@@ -28,11 +28,6 @@ namespace Tomogram_3D
             {
                 Bin.readBin(ofd.FileName);
                 View3D.Generate3DTexture();
-                //trackBarZ.Maximum = Bin.Z - 1;
-                //currentLayer = trackBarZ.Value = 0;
-                //View.need_reload = true;
-                //View.SetupView(glControl1.Width, glControl1.Height);
-                //glControl1.Invalidate();
                 timer1.Start();
             }
         }
@@ -53,9 +48,7 @@ namespace Tomogram_3D
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
             glControl1.MakeCurrent();
-
             View3D.Render();
-
             glControl1.SwapBuffers();
         }
 

@@ -87,7 +87,7 @@ namespace Tomogram_Utilities
                 GL.Translate(-0.5f, -0.5f, -0.5f);
 
                 GL.BindTexture(TextureTarget.Texture3D, texture_id);
-
+                /*
                 GL.Begin(PrimitiveType.Quads);
                 for (float z = -2.0f; z <= 2.0f; z += 4.0f / 500)
                 {
@@ -101,8 +101,25 @@ namespace Tomogram_Utilities
                     GL.TexCoord3(1.5f, -0.5f, -tex_z);
                     GL.Vertex3(2.0f, -2.0f, z);
                 }
-
                 GL.End();
+                */
+                // optimized for rotate around Y only:
+                double d = Math.Sqrt(2);
+                GL.Begin(PrimitiveType.Quads);
+                for (double z = -d; z <= d; z += 2 * d / 300)
+                {
+                    double tex_z = z / 2 - 0.5;
+                    GL.TexCoord3(-d / 2 + 0.5, 0, -tex_z);
+                    GL.Vertex3(-d, -1, z);
+                    GL.TexCoord3(-d / 2 + 0.5, 1, -tex_z);
+                    GL.Vertex3(-d, 1, z);
+                    GL.TexCoord3(d / 2 + 0.5, 1, -tex_z);
+                    GL.Vertex3(d, 1, z);
+                    GL.TexCoord3(d / 2 + 0.5, 0, -tex_z);
+                    GL.Vertex3(d, -1, z);
+                }
+                GL.End();
+                
             }
         }
     }
