@@ -56,14 +56,6 @@ namespace Tomogram_Utilities
 
             for (int i = 0, j = 0; i < bytes; i+= 4, j++)
             {
-                // for special textures (delete later)
-                // 1:
-                //int x = j % (Bin.X * Bin.Y) % Bin.X;
-                //int y = j % (Bin.X * Bin.Y) / Bin.X;
-                // 2:
-                //int x = j / (Bin.X * Bin.Y);
-                //int y = j % (Bin.X * Bin.Y) % Bin.X;
-                //byte t = View3D.SpecialTransferFunction(x, y, Bin.array[j]);
                 byte t = View.TransferFunction(Bin.array[j]);
                 texture_buffer[i] = t;
                 texture_buffer[i + 1] = t;
@@ -141,16 +133,7 @@ namespace Tomogram_Utilities
                     GL.Vertex3(t, -1, z);
                 }
                 GL.End();
-                
             }
-        }
-
-        // for special texture (delete later)
-        public static byte SpecialTransferFunction(int x, int y, short t)
-        {
-            if (y > -Math.Pow((x - 260) / 31, 2) + 390)
-                return 0;
-            return View.TransferFunction(t);
         }
     }
 }
