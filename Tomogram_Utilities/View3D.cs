@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using OpenTK.WinForms;
 
 namespace Tomogram_Utilities
 {
@@ -19,6 +20,8 @@ namespace Tomogram_Utilities
 
         public static void ChangeView(int width, int height)
         {
+            /*
+            // orthographic projection
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             if (height <= width)
@@ -31,6 +34,16 @@ namespace Tomogram_Utilities
                 float t = 1.25f * height / width;
                 GL.Ortho(-1.25f, 1.25f, -t, t, -2.0f, 2.0f);
             }
+            */
+            // perspective projection
+            float aspect_ratio = Math.Max(width, 1) / (float)Math.Max(height, 1);
+            Matrix4 perpective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspect_ratio, 1, 64);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref perpective);
+            Matrix4 lookat = Matrix4.LookAt(0, 0, 3.5f, 0, 0, 0, 0, 1, 0);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(ref lookat);
+
             GL.Viewport(0, 0, width, height);
         }
 
@@ -43,6 +56,14 @@ namespace Tomogram_Utilities
 
             for (int i = 0, j = 0; i < bytes; i+= 4, j++)
             {
+                // for special textures (delete later)
+                // 1:
+                //int x = j % (Bin.X * Bin.Y) % Bin.X;
+                //int y = j % (Bin.X * Bin.Y) / Bin.X;
+                // 2:
+                //int x = j / (Bin.X * Bin.Y);
+                //int y = j % (Bin.X * Bin.Y) % Bin.X;
+                //byte t = View3D.SpecialTransferFunction(x, y, Bin.array[j]);
                 byte t = View.TransferFunction(Bin.array[j]);
                 texture_buffer[i] = t;
                 texture_buffer[i + 1] = t;
@@ -109,18 +130,27 @@ namespace Tomogram_Utilities
                 for (double z = -d; z <= d; z += 2 * d / 300)
                 {
                     double tex_z = z / 2 - 0.5;
-                    GL.TexCoord3(-d / 2 + 0.5, 0, -tex_z);
-                    GL.Vertex3(-d, -1, z);
-                    GL.TexCoord3(-d / 2 + 0.5, 1, -tex_z);
-                    GL.Vertex3(-d, 1, z);
-                    GL.TexCoord3(d / 2 + 0.5, 1, -tex_z);
-                    GL.Vertex3(d, 1, z);
-                    GL.TexCoord3(d / 2 + 0.5, 0, -tex_z);
-                    GL.Vertex3(d, -1, z);
+                    double t = Math.Sqrt(2 - z * z);
+                    GL.TexCoord3(-t / 2 + 0.5, 0, -tex_z);
+                    GL.Vertex3(-t, -1, z);
+                    GL.TexCoord3(-t / 2 + 0.5, 1, -tex_z);
+                    GL.Vertex3(-t, 1, z);
+                    GL.TexCoord3(t / 2 + 0.5, 1, -tex_z);
+                    GL.Vertex3(t, 1, z);
+                    GL.TexCoord3(t / 2 + 0.5, 0, -tex_z);
+                    GL.Vertex3(t, -1, z);
                 }
                 GL.End();
                 
             }
+        }
+
+        // for special texture (delete later)
+        public static byte SpecialTransferFunction(int x, int y, short t)
+        {
+            if (y > -Math.Pow((x - 260) / 31, 2) + 390)
+                return 0;
+            return View.TransferFunction(t);
         }
     }
 }
