@@ -74,5 +74,15 @@ namespace Tomogram_3D
                 View3D.ChangeView(glControl1.ClientSize.Width, glControl1.ClientSize.Height);
             }
         }
+
+        private void trackBar_Alpha_Scroll(object sender, EventArgs e)
+        {
+            View3D.alpha_coef = trackBar_Alpha.Value;
+        }
+
+        private void trackBar_NoS_Scroll(object sender, EventArgs e)
+        {
+            View3D.number_of_slices = trackBar_NoS.Value;
+        }
     }
 }

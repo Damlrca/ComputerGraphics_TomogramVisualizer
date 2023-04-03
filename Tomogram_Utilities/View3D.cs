@@ -20,6 +20,8 @@ namespace Tomogram_Utilities
     public static class View3D
     {
         public static ProjMode projMode = ProjMode.Persp;
+        public static int alpha_coef = 0;
+        public static int number_of_slices = 300;
 
         public static void SetupView(int width, int height)
         {
@@ -103,7 +105,7 @@ namespace Tomogram_Utilities
         public static void Render()
         {
             GL.Enable(EnableCap.AlphaTest);
-            //GL.AlphaFunc(AlphaFunction.Greater, 0.03f);
+            GL.AlphaFunc(AlphaFunction.Gequal, alpha_coef / 100f);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             GL.Enable(EnableCap.Texture3DExt);
@@ -138,7 +140,7 @@ namespace Tomogram_Utilities
                 // optimized for rotate around Y only:
                 double d = Math.Sqrt(2);
                 GL.Begin(PrimitiveType.Quads);
-                for (double z = -d; z <= d; z += 2 * d / 300)
+                for (double z = -d; z <= d; z += 2 * d / number_of_slices)
                 {
                     double tex_z = z / 2 - 0.5;
                     double t = Math.Sqrt(2 - z * z);
