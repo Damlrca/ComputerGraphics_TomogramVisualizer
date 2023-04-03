@@ -56,5 +56,23 @@ namespace Tomogram_3D
         {
             glControl1.Invalidate();
         }
+
+        private void radioButton_Persp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Persp.Checked)
+            {
+                View3D.projMode = ProjMode.Persp;
+                View3D.ChangeView(glControl1.ClientSize.Width, glControl1.ClientSize.Height);
+            }
+        }
+
+        private void radioButton_Ortho_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_Ortho.Checked)
+            {
+                View3D.projMode = ProjMode.Ortho;
+                View3D.ChangeView(glControl1.ClientSize.Width, glControl1.ClientSize.Height);
+            }
+        }
     }
 }

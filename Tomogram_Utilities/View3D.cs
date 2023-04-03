@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
@@ -10,8 +11,16 @@ using OpenTK.WinForms;
 
 namespace Tomogram_Utilities
 {
+    public enum ProjMode
+    {
+        Ortho,
+        Persp
+    }
+
     public static class View3D
     {
+        public static ProjMode projMode = ProjMode.Persp;
+
         public static void SetupView(int width, int height)
         {
             GL.ShadeModel(ShadingModel.Smooth);
@@ -20,31 +29,41 @@ namespace Tomogram_Utilities
 
         public static void ChangeView(int width, int height)
         {
-            /*
-            // orthographic projection
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            if (height <= width)
+            switch (projMode)
             {
-                float t = 1.25f * width / height;
-                GL.Ortho(-t, t, -1.25f, 1.25f, -2.0f, 2.0f);
+                case ProjMode.Ortho:
+                    // orthographic projection
+                    GL.MatrixMode(MatrixMode.Projection);
+                    GL.LoadIdentity();
+                    if (height <= width)
+                    {
+                        float t = 1.25f * width / height;
+                        GL.Ortho(-t, t, -1.25f, 1.25f, -2.0f, 2.0f);
+                    }
+                    else
+                    {
+                        float t = 1.25f * height / width;
+                        GL.Ortho(-1.25f, 1.25f, -t, t, -2.0f, 2.0f);
+                    }
+                    GL.MatrixMode(MatrixMode.Modelview);
+                    GL.LoadIdentity();
+                    GL.Viewport(0, 0, width, height);
+                    break;
+                case ProjMode.Persp:
+                    // perspective projection
+                    float aspect_ratio = Math.Max(width, 1) / (float)Math.Max(height, 1);
+                    Matrix4 perpective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspect_ratio, 1, 64);
+                    GL.MatrixMode(MatrixMode.Projection);
+                    GL.LoadMatrix(ref perpective);
+                    Matrix4 lookat = Matrix4.LookAt(0, 0, 3.5f, 0, 0, 0, 0, 1, 0);
+                    GL.MatrixMode(MatrixMode.Modelview);
+                    GL.LoadMatrix(ref lookat);
+                    GL.Viewport(0, 0, width, height);
+                    break;
+                default:
+                    //???
+                    break;
             }
-            else
-            {
-                float t = 1.25f * height / width;
-                GL.Ortho(-1.25f, 1.25f, -t, t, -2.0f, 2.0f);
-            }
-            */
-            // perspective projection
-            float aspect_ratio = Math.Max(width, 1) / (float)Math.Max(height, 1);
-            Matrix4 perpective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspect_ratio, 1, 64);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref perpective);
-            Matrix4 lookat = Matrix4.LookAt(0, 0, 3.5f, 0, 0, 0, 0, 1, 0);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref lookat);
-
-            GL.Viewport(0, 0, width, height);
         }
 
         private static int texture_id = 0;
